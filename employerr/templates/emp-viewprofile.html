@@ -1,0 +1,31 @@
+{%extends 'base.html' %}
+{%block body_block%}
+
+<div class="row">
+    <div class="col-2">
+
+    </div>
+    <div class="col-8">
+        <div class="card" style="width: 18rem;">
+  <img src="{{request.user.employer12.logo.url}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{request.user.employer12.company_name}}</h5>
+    <p class="card-text">Tata Consultancy Services is an Indian multi-national information technology services and consulting company with its headquarters in Mumbai..</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{request.user.email}}</li>
+    <li class="list-group-item"> {{request.user.employer12.location}}</li>
+
+  </ul>
+  <div class="card-body">
+    <a href="{%url 'emp-editprofile' request.user.employer12.id %}" class="card-link">Update profile</a>
+
+  </div>
+</div>
+    </div>
+    <div class="col-2">
+
+    </div>
+</div>
+
+{%endblock%}

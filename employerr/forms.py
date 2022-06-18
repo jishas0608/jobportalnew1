@@ -1,5 +1,5 @@
 from django import forms
-from employerr.models import Jobs
+from employerr.models import Jobs,CompanyProfile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 class JobForm(forms.ModelForm):
@@ -32,3 +32,8 @@ class PasswordResetForm(forms.Form):
         if pwd1 !=pwd2:
             msg="password missmatch"
             self.add_error("password1",msg)
+
+class CompanyProfileForm(forms.ModelForm):
+    class Meta:
+        model=CompanyProfile
+        exclude=("user",)

@@ -12,4 +12,7 @@ urlpatterns = [
     path("users/accounts/signout", views.SignOutView, name="signout"),
     path("users/password/change",views.ChangePasswordView.as_view(),name='password-change'),
     path("users/password/reset",views.PasswordResetView.as_view(),name='password-reset'),
+    path("profile/detail",views.EmpViewProfileView.as_view(),name='emp-viewprofile'),
+    path("profile/add",views.CompanyProfileView.as_view(),name='emp-addprofile'),
+    path("profile/edit/<int:id>",views.EmpProfileEditView.as_view(),name='emp-editprofile')
 ]

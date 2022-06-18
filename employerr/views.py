@@ -3,11 +3,11 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView,View,ListView,CreateView,DetailView,UpdateView,DeleteView,FormView
 
 # Create your views here.
-from employerr.models import Jobs
+from employerr.models import Jobs,CompanyProfile
 from django.contrib.auth import authenticate
 
 from employerr.forms import SignUp
-from employerr.forms import LoginForm,PasswordResetForm
+from employerr.forms import LoginForm,PasswordResetForm,CompanyProfileForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.contrib.auth import logout
@@ -130,7 +130,7 @@ class SignInView(FormView):
 
                 return redirect("emp-alljobs")
             else:
-                return render(request,"loggin.html",{{"form":form}})
+                return render(request,"loggin.html",{"form":form})
 
 def SignOutView(request,*args,**kwargs):
     logout(request)
@@ -164,5 +164,33 @@ class PasswordResetView(TemplateView):
             return redirect("signin")
 
 
+class CompanyProfileView(CreateView):
+    model=CompanyProfile
+    form_class = CompanyProfileForm
+    template_name ='emp-addprofile.html'
+    success_url = reverse_lazy('emp-home')
 
 
+    def form_valid(self, form):
+        form.instance.user=self.request.user
+        return super().form_valid(form)
+
+    # def post(self, request, *args, **kwargs):
+    #     form=CompanyProfileForm(request.POST,files=request.FILES)
+    #
+    #     if form.is_valid():
+    #         form.instance.user=request.user
+    #         form.save()
+    #         return redirect('emp-home')
+    #     else:
+    #         return render(request,self.template_name,{"form":form})
+
+class EmpViewProfileView(TemplateView):
+    template_name = 'emp-viewprofile.html'
+
+class EmpProfileEditView(UpdateView):
+    model = CompanyProfile
+    form_class = CompanyProfileForm
+    template_name = "emp-editprofile.html"
+    success_url = reverse_lazy('emp-viewprofile')
+    pk_url_kwarg = "id"

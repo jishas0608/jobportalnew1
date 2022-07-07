@@ -10,7 +10,11 @@ class JobForm(forms.ModelForm):
     # experience=forms.IntegerField()
     class Meta:
         model=Jobs
-        fields="__all__"
+        exclude=("company","created_date","active_status")
+        widgets={
+            "last_date":forms.DateInput(attrs={"class":"form-control","type":"date"})
+        }
+
 
 class SignUp(UserCreationForm):
     class Meta:
